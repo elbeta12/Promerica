@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liga Promerica</title>
+  <style>
+    :root{
+      --bg: #0f1a1d;
+      --bg-2:#122227;
+      --panel:#18262c;
+      --ink:#e6f1f1;
+      --muted:#a5b7b7;
+      --accent:#2afc98;
+      --accent-2:#13c4a3;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% -10%, #18413a33, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 10%, #1b5a4a33, transparent 60%),
+                  linear-gradient(180deg, var(--bg), #0b1517 70%);
+    }
+
+    /* Header + Navbar */
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      background:rgba(16,28,30,.85);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid #2a3b40;
+    }
+    .wrap{ max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:14px; }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .brand img{ width:40px; height:40px; border-radius:10px; box-shadow:var(--shadow) }
+    .brand h1{ font-size:1.05rem; margin:0; letter-spacing:.3px; color:var(--ink); }
+    .spacer{ flex:1 }
+    .nav{ display:flex; gap:6px; padding:6px; background:#0e1a1d; border:1px solid #22373c; border-radius:999px; }
+    .nav button{ appearance:none; border:0; background:transparent; color:var(--muted); padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:600; letter-spacing:.2px; transition: .2s ease; }
+    .nav button:hover{ color:var(--ink) }
+    .nav button.active{ color:#07251b; background:linear-gradient(180deg,var(--accent),#1de28a); box-shadow: 0 6px 18px #1de28a55; }
+    .discord{ margin-left:10px; text-decoration:none; font-weight:700; padding:10px 14px; border-radius:12px; color:#0d1436; background:#8ea1f2; border:1px solid #a8b3ff; transition:.2s; }
+    .discord:hover{ transform:translateY(-1px); filter:brightness(1.05) }
+
+    /* Sections */
+    .section{ display:none; }
+    .section.active{ display:block; }
+    .container{ max-width:1100px; margin:30px auto; padding:0 18px; }
+
+    .hero{ background: linear-gradient(180deg, #0f1f23, #0d1a1d); border:1px solid #24393f; border-radius:var(--radius); box-shadow:var(--shadow); padding:28px; text-align:center; }
+    .hero h2{ margin:6px 0 8px; font-size:1.8rem; color:#dff7f3 }
+    .hero p{ margin:0; color:var(--muted) }
+    .cta-row{ margin-top:16px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap }
+    .btn{ border:1px solid #23423b; color:#bff5e2; background:#123a32; padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700; }
+    .btn:hover{ filter:brightness(1.05) }
+
+    .block { background: #0f1e21; padding: 20px 25px; border-radius: 14px; max-width: 100%; margin: 20px auto; border: 1px solid #23373c; box-shadow: 0 4px 18px rgba(0,0,0,0.5); color: #d9eeee; }
+    .block h3 { margin-top: 0; margin-bottom: 12px; font-size: 1.6rem; color: #0b261f; background: linear-gradient(180deg, var(--accent), #1de28a); padding: 10px 14px; border-radius: 10px; text-align: center; letter-spacing: .5px; }
+    .block p { line-height: 1.6; font-size: 1rem; color: #d9eeee; }
+
+    .block {
+  max-width: 1000px;   /* ancho máximo más compacto */
+  margin: 40px auto;  /* centrado con espacio arriba y abajo */
+  background: var(--panel);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+
+    /* Tables */
+   .tables-grid {
+  display: flex;              /* centramos la tabla */
+  justify-content: center;    
+}
+
+.tables-grid > div {
+  width: 100%;
+  max-width: 750px;           /* ancho máximo de la tabla */
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid #23373c;
+  background: #0f1e21;
+}
+
+thead th {
+  text-align: center;
+  padding: 12px 10px;
+  font-size: .9rem;
+  letter-spacing: .4px;
+  color: #0b261f;
+  background: linear-gradient(180deg, var(--accent), #1de28a);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tbody td {
+  padding: 10px;
+  border-top: 1px solid #1e3236;
+  text-align: center;
+  color: #d9eeee;
+}
+
+tbody tr:nth-child(odd) td {
+  background: #122427;
+}
+
+tbody tr:hover td {
+  background: #153238;
+}
+
+td.left {
+  text-align: left;
+}
+
+td .logo {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  border-radius: 6px;
+  margin-right: 6px;
+}
+
+.separator {
+  text-align: center;
+  margin: 16px 0 -6px;
+  color: #9fdcc8;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+    /* Jornadas */
+    .match-list{ display:grid; grid-template-columns:1fr; gap:12px }
+    @media(min-width:760px){ .match-list{ grid-template-columns:1fr 1fr } }
+    .match{ display:flex; align-items:center; justify-content:space-between; gap:10px; background:#0f1f22; border:1px solid #243b41; border-radius:12px; padding:12px 14px; }
+    .team{ display:flex; align-items:center; gap:8px; min-width:0; font-weight:700; color:#eafff7; }
+    .team img{ width:28px; height:28px; border-radius:6px }
+    .vs{ opacity:.8; font-weight:800; letter-spacing:.3px }
+    .when{ text-align:right; color:#a8d7c7; font-size:.9rem }
+    .badge{ font-size:.65rem; padding:4px 8px; border-radius:999px; border:1px solid #27524a; color:#baf3e1; background:#113c33; }
+    .score { font-weight: 800; font-size: 1.1rem; color: #FFD700; padding: 2px 8px; border-radius: 8px; background: #1a2d2f; }
+
+    /* Affiliates */
+    .aff-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    @media(min-width:680px){ .aff-grid{ grid-template-columns:repeat(3,1fr) } }
+    @media(min-width:960px){ .aff-grid{ grid-template-columns:repeat(4,1fr) } }
+    .aff{ background:#0f2023; border:1px solid #244045; border-radius:14px; padding:14px; display:flex; align-items:center; justify-content:center; aspect-ratio: 16/10; transition:.2s; text-decoration:none; }
+    .aff:hover{ transform:translateY(-2px); box-shadow:0 10px 18px #00000055 }
+    .aff img{ max-width:70%; max-height:70%; border-radius:10px }
+
+    /* Footer */
+    footer{ margin:40px 0 60px; text-align:center; color:#86aaa7; font-size:.9rem; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV / HEADER -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTeNvkbmyd0KTO0x5HQB1Nh6FiDyQjBLUQfQ&s" alt="Liga Promerica">
+        <h1>Liga Promerica</h1>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="nav" id="nav">
+        <button class="active" data-target="inicio">Inicio</button>
+        <button data-target="tablas">Tablas</button>
+        <button data-target="jornadas">Jornadas</button>
+        <button data-target="afiliados">Afiliados</button>
+      </div>
+
+      <a class="discord" href="https://discord.gg/MS7mgADF4M" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+
+  <!-- SECCIÓN: INFO -->
+  <div class="block">
+    <h3>Cómo funciona</h3>
+    <p style="color:var(--muted); margin:0">
+      En esta sección encontrarás las <b>Tablas de Posiciones</b> que se actualizan de manera automática según los resultados de cada jornada. Los equipos están organizados por <b>puntos obtenidos</b>, y en caso de empate se aplican criterios como <b>diferencia de goles</b> y <b>rendimiento en los partidos directos</b>.
+    </p>
+    <p style="color:var(--muted); margin-top:10px">
+      La liga está dividida en <b>Primera División</b> y <b>Segunda División</b>, lo que garantiza una competencia equilibrada donde cada club busca ascender y ganarse un lugar entre los mejores. Aquí podrás ver en tiempo real cómo suben o bajan los equipos jornada tras jornada.
+    </p>
+    <p style="color:var(--muted); margin-top:10px">
+      Además, en el apartado de <b>Jornadas</b> queda el registro histórico de cada fecha, para que siempre puedas consultar resultados pasados y revivir partidos clave de la temporada. Nada se pierde, todo queda en el archivo de la liga.
+    </p>
+    <p style="color:var(--muted); margin-top:10px">
+      Y por último, en la sección de <b>Afiliados</b> encontrarás a nuestros socios y colaboradores oficiales, con enlaces directos a sus comunidades y proyectos. Ellos forman parte de la base que impulsa este torneo.
+    </p>
+  </div>
+
+  <section id="inicio" class="section active">
+    <div class="container">
+      <div class="hero">
+        <span class="badge">⚡ Temporada 1</span>
+        <h2>🏆 ¡Bienvenido a la Liga Promerica!</h2>
+        <p>La <strong>Liga Promerica</strong> abre sus puertas a una temporada cargada de adrenalina, pasión y competencia. Aquí podrás seguir en tiempo real la <strong>tabla de posiciones</strong>, descubrir los resultados de cada <strong>jornada</strong>, conocer a los <strong>clubes afiliados</strong> que forman parte de esta gran familia y revivir los <strong>mejores momentos</strong> que marcarán la historia del torneo.</p>
+        <p>Nuestra misión es crear un espacio donde cada partido cuente una historia, donde cada gol se grabe en la memoria de los fanáticos y donde la comunidad crezca unida por la pasión al fútbol.</p>
+        <p>¡Prepárate para vibrar con cada jugada y no perderte nada de esta temporada inolvidable!</p>
+        <div class="cta-row">
+          <a class="btn" href="https://haxcloud.vercel.app/" target="_blank" rel="noopener">☁ Cloud</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: TABLAS -->
+  <section id="tablas" class="section">
+    <div class="container">
+      <div class="tables-grid">
+        <div>
+          <div class="block">
+            <h3>Primera División</h3>
+            <table>
+              <thead>
+                <tr><th>#</th><th>Equipo</th><th>Tag</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th></tr>
+              </thead>
+              <tbody id="tablaD1"></tbody>
+            </table>
+          </div>
+        </div>
+  </section>
+
+  <!-- SECCIÓN: JORNADAS -->
+  <section id="jornadas" class="section">
+    <div class="container">
+      <div class="block">
+        <h3>Jornadas — Primera División</h3>
+        <div class="match-list" id="jornadasD1"></div>
+      </div>
+      <div class="block">
+        <h3>Jornadas — Segunda División</h3>
+        <div class="match-list" id="jornadasD2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: AFILIADOS -->
+  <section id="afiliados" class="section">
+    <div class="container">
+      <div class="block">
+        <h3>Afiliados</h3>
+        <div class="aff-grid" id="affGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Liga Promerica | By HaxCloud</footer>
+
+  <script>
+    /* ====== DATA ====== */
+    const LOGOS = {
+      ALA: "https://static.wikia.nocookie.net/futbol/images/a/a2/AlajuelenseEscudo.png/revision/latest?cb=20170316191927",
+      SAP: "https://static.wikia.nocookie.net/futbol/images/d/d2/SaprissaEscudo.png/revision/latest?cb=20170316193053",
+      CAR: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Escudo_del_Club_Sport_Cartagin%C3%A9s.svg/1200px-Escudo_del_Club_Sport_Cartagin%C3%A9s.svg.png",
+      LIB: "https://upload.wikimedia.org/wikipedia/en/0/02/A.D._Municipal_Liberia.svg",
+      DSC: "https://www.torosdelnorte.com/wp-content/uploads/2024/08/Logo-San-Carlos-e.png",
+      SSJ: "https://upload.wikimedia.org/wikipedia/en/0/0f/Real_Sporting_San_Jos%C3%A9.png",
+      PUN: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b1/Puntarenas_F.C.svg/1200px-Puntarenas_F.C.svg.png",
+      DPC: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/AD_Carmelita.svg/1200px-AD_Carmelita.svg.png",
+      CSU: "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/13418.png",
+      HER: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNvg6WmKgD6xcSvRVMvb22iSpu4J_d3z8lw&s",
+      GFC: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Escudo_de_Guadalupe_F%C3%BAtbol_Club.svg/1200px-Escudo_de_Guadalupe_F%C3%BAtbol_Club.svg.png",
+      MPZ: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Escudo_Asociaci%C3%B3n_Deportiva_Municipal_de_P%C3%A9rez_Zeled%C3%B3n_2005-2011.svg/1200px-Escudo_Asociaci%C3%B3n_Deportiva_Municipal_de_P%C3%A9rez_Zeled%C3%B3n_2005-2011.svg.png",
+      BVB: "https://via.placeholder.com/120x120.png?text=Club"
+    };
+
+    const D1 = [
+      { nombre:"Alajuelense", tag:"#ALA", logo:LOGOS.ALA, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Deportivo Saprissa", tag:"#SAP", logo:LOGOS.SAP, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Cartaginés", tag:"#CAR", logo:LOGOS.CAR, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Municipal Liberia", tag:"#LIB", logo:LOGOS.LIB, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Deportivo San Carlos", tag:"#DSC", logo:LOGOS.DSC, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Sporting San Jose", tag:"#SSJ", logo:LOGOS.SSJ, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Puntarenas FC", tag:"#PUN", logo:LOGOS.PUN, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Deportivo Carmelita", tag:"#DPC", logo:LOGOS.DPC, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Sport Uruguay", tag:"#CSU", logo:LOGOS.CSU, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Club Sport Herediano", tag:"#HER", logo:LOGOS.HER, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Guadalupe FC", tag:"#GFC", logo:LOGOS.GFC, pj:0, g:0, e:0, p:0, pts:0 },
+      { nombre:"Municipal Perez Zeldon", tag:"#MPZ", logo:LOGOS.MPZ, pj:0, g:0, e:0, p:0, pts:0 },
+    ];
+
+    const D2 = [
+      { nombre:"Por definir", tag:"#???", logo:LOGOS.BVB, pj:0, g:0, e:0, p:0, pts:0 },
+    ];
+
+    // Jornadas registradas (no se borran)
+    const JORNADAS_D1 = [
+      { local:"SAP", logoLocal:LOGOS.SAP, visitante:"HER", logoVisit:LOGOS.HER, fecha:"00/00/0000", hora:"00:00", resultado:"0-0" },
+    ];
+
+    const JORNADAS_D2 = [
+      { local:"ALA", logoLocal:LOGOS.ALA, visitante:"MPZ", logoVisit:LOGOS.MPZ, fecha:"00/00/0000", hora:"00:00", resultado:"0-0" },
+    ];
+
+    const AFILIADOS = [
+      { name:"???", url:"???", img:"???" },
+
+    ];
+
+    /* ====== RENDER ====== */
+    function sortTabla(a,b){
+      // Orden: puntos desc, victorias desc, PJ asc, nombre asc
+      return (b.pts - a.pts) || (b.g - a.g) || (a.pj - b.pj) || a.nombre.localeCompare(b.nombre);
+    }
+
+    function renderTabla(data, targetId){
+      const tbody = document.getElementById(targetId);
+      if(!tbody) return;
+      tbody.innerHTML = "";
+      // clone array to avoid mutating original
+      const sorted = Array.isArray(data) ? [...data].sort(sortTabla) : [];
+      sorted.forEach((t, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i+1}</td>
+          <td class="left"><img class="logo" src="${t.logo}" alt="${t.nombre}"> ${t.nombre}</td>
+          <td>${t.tag}</td>
+          <td>${t.pj}</td>
+          <td>${t.g}</td>
+          <td>${t.e}</td>
+          <td>${t.p}</td>
+          <td><b>${t.pts}</b></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderJornadas(list, targetId){
+      const box = document.getElementById(targetId);
+      if(!box) return;
+      box.innerHTML = "";
+      list.forEach(m=>{
+        const row = document.createElement('div');
+        row.className = "match";
+        const resultHTML = (m.resultado && m.resultado !== "-") ? `<span class="score">${m.resultado}</span>` : 'VS';
+        row.innerHTML = `
+          <div class="team">
+            <img src="${m.logoLocal}" alt="${m.local}">
+            <span>${m.local}</span>
+          </div>
+
+          <div class="vs">${resultHTML}</div>
+
+          <div class="team" style="justify-content:flex-end">
+            <span style="text-align:right">${m.visitante}</span>
+            <img src="${m.logoVisit}" alt="${m.visitante}">
+          </div>
+
+          <div class="when">
+            <div>${m.fecha}</div>
+            <div>${m.hora}</div>
+          </div>
+        `;
+        box.appendChild(row);
+      });
+    }
+
+    function renderAfiliados(){
+      const grid = document.getElementById('affGrid');
+      if(!grid) return;
+      grid.innerHTML = "";
+      AFILIADOS.forEach(a=>{
+        const card = document.createElement('a');
+        card.className = 'aff';
+        card.href = a.url;
+        card.target = "_blank";
+        card.rel = "noopener";
+        card.innerHTML = `<img src="${a.img}" alt="${a.name}">`;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ====== NAV ====== */
+    function cambiarSeccion(id){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      const el = document.getElementById(id);
+      if(el) el.classList.add('active');
+
+      // nav active
+      document.querySelectorAll('.nav button').forEach(b=>{
+        b.classList.toggle('active', b.dataset.target === id);
+      });
+
+      // scroll top for clarity on mobiles
+      window.scrollTo({ top:0, behavior:'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Bind nav buttons
+      const nav = document.getElementById('nav');
+      if(nav){
+        nav.addEventListener('click', (e)=>{
+          const btn = e.target.closest('button[data-target]');
+          if(!btn) return;
+          cambiarSeccion(btn.dataset.target);
+        });
+      }
+
+      // Initial render
+      renderTabla(D1, 'tablaD1');
+      renderJornadas(JORNADAS_D1, 'jornadasD1');
+      renderJornadas(JORNADAS_D2, 'jornadasD2');
+      renderAfiliados();
+    });
+  </script>
+</body>
+</html>

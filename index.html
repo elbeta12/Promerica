@@ -294,7 +294,9 @@ td .logo {
 
     // Jornadas registradas (no se borran)
     const JORNADAS_D1 = [
-      { local:"SAP", logoLocal:LOGOS.SAP, visitante:"HER", logoVisit:LOGOS.HER, fecha:"00/00/0000", hora:"00:00", resultado:"0-0" },
+      { local:"DSC", logoLocal:LOGOS.DSC, visitante:"MPZ", logoVisit:LOGOS.MPZ, fecha:"20/08/2025", hora:"6:00 PM", resultado:"3-0" },
+      { local:"SAP", logoLocal:LOGOS.SAP, visitante:"HER", logoVisit:LOGOS.HER, fecha:"20/08/2025", hora:"7:00", resultado:"8-1" },
+      { local:"LIB", logoLocal:LOGOS.LIB, visitante:"SSJ", logoVisit:LOGOS.SSJ, fecha:"20/08/2025", hora:"8:00 PM", resultado:"8-0" },
     ];
 
     const JORNADAS_D2 = [
@@ -305,6 +307,21 @@ td .logo {
      // { name:"???", url:"", img:"???" },
 
     ];
+
+   
+function fechaLocal(fechaString){
+
+  if(fechaString === "00/00/0000") {
+    const hoy = new Date();
+    const region = navigator.language || "es-ES";
+    return new Intl.DateTimeFormat(region, {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }).format(hoy);
+  }
+  return fechaString;
+}
 
     /* ====== RENDER ====== */
     function sortTabla(a,b){
@@ -356,9 +373,10 @@ td .logo {
           </div>
 
           <div class="when">
-            <div>${m.fecha}</div>
-            <div>${m.hora}</div>
-          </div>
+  <div>${fechaLocal(m.fecha)}</div>
+  <div>${m.hora}</div>
+</div>
+
         `;
         box.appendChild(row);
       });

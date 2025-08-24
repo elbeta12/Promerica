@@ -169,7 +169,7 @@ td .logo {
   <div class="topbar">
     <div class="wrap">
       <div class="brand">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Liga_Promerica.svg/2560px-Liga_Promerica.svg.png" alt="Liga Promerica">
+        <img src="https://images.sports.gracenote.com/images/lib/basic/sport/football/competition/logo/300/540.png" alt="Liga Promerica">
         <h1>Liga Promerica</h1>
       </div>
 
@@ -430,5 +430,140 @@ function fechaLocal(fechaString){
       renderAfiliados();
     });
   </script>
+
+<!-- LOADER HACKER PURO -->
+<div id="hacker-loader">
+  <canvas id="matrix"></canvas>
+  <div class="loader-content">
+    <img src="https://images.sports.gracenote.com/images/lib/basic/sport/football/competition/logo/300/540.png" alt="Liga Promerica" class="loader-logo">
+    <pre id="hack-text"></pre>
+  </div>
+</div>
+
+<style>
+#hacker-loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+#matrix {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  opacity: 0.25; /* más tenue para no confundir con texto */
+}
+
+.loader-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #00ff84;
+  font-family: "Courier New", monospace;
+}
+
+.loader-logo {
+  width: 130px;
+  margin-bottom: 25px;
+  filter: drop-shadow(0 0 10px #00ff84);
+  animation: pulse 1.5s infinite;
+}
+
+#hack-text {
+  font-size: 15px;
+  text-align: left;
+  white-space: pre-wrap;
+  color: #00ff84;
+  max-width: 600px;
+  margin: auto;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+</style>
+
+<script>
+// ======== Mensajes estilo hacker ========
+const hackLines = [
+  "[*] Iniciando sesión...",
+  "[*] Verificando credenciales...",
+  "[*] Sincronizando datos...",
+  "[*] Estableciendo conexión segura...",
+  "[*] Bienvenido al sistema."
+];
+
+let i = 0;
+function typeLine() {
+  if (i < hackLines.length) {
+    const line = hackLines[i];
+    let j = 0;
+    const interval = setInterval(() => {
+      document.getElementById("hack-text").textContent += line[j] || "";
+      j++;
+      if (j === line.length) {
+        document.getElementById("hack-text").textContent += "\n";
+        clearInterval(interval);
+        i++;
+        setTimeout(typeLine, 500);
+      }
+    }, 40);
+  } else {
+    setTimeout(() => {
+      document.getElementById("hacker-loader").style.opacity = "0";
+      setTimeout(() => document.getElementById("hacker-loader").style.display = "none", 600);
+    }, 1500);
+  }
+}
+window.addEventListener("load", typeLine);
+
+// ======== Fondo Matrix ========
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+// caracteres especiales estilo hacker
+const chars = "█▓▒░◆◇◈⊗◍◌◎◉◯◖◗◍◍";
+const fontSize = 18;
+const columns = canvas.width / fontSize;
+
+let drops = [];
+for (let x = 0; x < columns; x++) drops[x] = 1;
+
+function draw() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#00ff84";
+  ctx.font = fontSize + "px Courier New";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+      drops[i] = 0;
+
+    drops[i] += 0.4; // caída más lenta y suave
+  }
+}
+
+setInterval(draw, 70);
+window.addEventListener("resize", () => {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+});
+</script>
 </body>
 </html>

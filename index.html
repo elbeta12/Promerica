@@ -253,14 +253,23 @@ td .logo {
 }
 
 /* Tarjetas */
+#tarjetasList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* espacio entre tarjetas */
+  justify-content: center; /* centra las tarjetas en la fila */
+}
+
 .tarjeta {
+  flex: 0 0 calc(33.333% - 12px); /* 3 tarjetas por fila con espacio */
   display: flex;
   align-items: center;
   background: #0f1e21;
   border-radius: 12px;
   padding: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  width: 300px;
+  box-sizing: border-box;
+  max-width: 300px; /* opcional, evita que se estire demasiado */
 }
 
 .tarjeta-img {
@@ -568,7 +577,10 @@ const CS = [
 
 const TARJETAS = [
   { jugador: "???", club: "SAP", fecha: "00/00/0000", tipo: "am" },
-  { jugador: "???", club: "HER", fecha: "00/00/0000", tipo: "ro" }
+  { jugador: "???", club: "HER", fecha: "00/00/0000", tipo: "ro" },
+  { jugador: "???", club: "SAP", fecha: "00/00/0000", tipo: "am" },
+  { jugador: "???", club: "SAP", fecha: "00/00/0000", tipo: "am" },
+  { jugador: "???", club: "SAP", fecha: "00/00/0000", tipo: "am" },
 ];
 
 

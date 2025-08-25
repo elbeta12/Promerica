@@ -161,6 +161,140 @@ td .logo {
 
     /* Footer */
     footer{ margin:40px 0 60px; text-align:center; color:#86aaa7; font-size:.9rem; }
+
+   /* === Stats === */
+#stats .block h3 {
+  margin-bottom: 14px;
+  font-size: 1.4rem;
+}
+
+#stats table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #23373c;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f1e21;
+}
+
+/* Encabezados */
+#stats thead th {
+  padding: 10px;
+  background: linear-gradient(180deg, var(--accent), #1de28a);
+  color: #0b261f;
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+/* Alineación de columnas del encabezado */
+#stats thead th:first-child,
+#stats thead th:nth-child(2) {
+  text-align: left; /* # y Jugador */
+}
+
+#stats thead th:nth-child(n+3) {
+  text-align: right; /* Goles, Asistencias, CS */
+}
+
+/* Celdas del cuerpo */
+#stats tbody td {
+  padding: 10px;
+  border-top: 1px solid #1e3236;
+  color: #d9eeee;
+}
+
+/* Alineación de celdas del cuerpo */
+#stats tbody td:first-child,
+#stats tbody td.player-cell {
+  text-align: left; /* # y Jugador */
+}
+
+#stats tbody td:nth-child(n+3) {
+  text-align: right; /* Goles, Asistencias, CS */
+}
+
+#stats tbody tr:nth-child(odd) td {
+  background: #122427;
+}
+
+#stats tbody tr:hover td {
+  background: #153238;
+}
+
+/* Logos dentro de celdas */
+#stats td img.logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Celda de jugador */
+#stats td.player-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-weight: 500;
+}
+
+#stats td.player-cell img.logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  margin: 0;
+}
+
+#stats td.player-cell .jugador {
+  color: #d9eeee;
+  font-size: 0.95rem;
+}
+
+/* Tarjetas */
+.tarjeta {
+  display: flex;
+  align-items: center;
+  background: #0f1e21;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  width: 300px;
+}
+
+.tarjeta-img {
+  width: 50px;
+  height: 70px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+
+.jugador-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #d9eeee;
+}
+
+.club-info {
+  display: flex;
+  align-items: center;
+}
+
+.club-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: cover;
+  margin-right: 6px;
+}
+
+.fecha {
+  font-size: 0.85rem;
+  color: #a0cfc1;
+}
+
   </style>
 </head>
 <body>
@@ -180,6 +314,10 @@ td .logo {
         <button data-target="tablas">Tablas</button>
         <button data-target="jornadas">Jornadas</button>
         <button data-target="afiliados">Afiliados</button>
+        <button data-target="stats">Estadísticas</button>
+        <button data-target="tarjetas">Tarjetas</button>
+
+
       </div>
 
       <a class="discord" href="https://discord.gg/MS7mgADF4M" target="_blank" rel="noopener">Discord</a>
@@ -187,21 +325,25 @@ td .logo {
   </div>
 
   <!-- SECCIÓN: INFO -->
-  <div class="block">
-    <h3>Cómo funciona</h3>
-    <p style="color:var(--muted); margin:0">
-      En esta sección encontrarás las <b>Tablas de Posiciones</b> que se actualizan de manera automática según los resultados de cada jornada. Los equipos están organizados por <b>puntos obtenidos</b>, y en caso de empate se aplican criterios como <b>diferencia de goles</b> y <b>rendimiento en los partidos directos</b>.
-    </p>
-    <p style="color:var(--muted); margin-top:10px">
-      La liga está dividida en <b>Primera División</b>, lo que garantiza una competencia equilibrada donde cada club busca ascender y ganarse un lugar entre los mejores. Aquí podrás ver en tiempo real cómo suben o bajan los equipos jornada tras jornada.
-    </p>
-    <p style="color:var(--muted); margin-top:10px">
-      Además, en el apartado de <b>Jornadas</b> queda el registro histórico de cada fecha, para que siempre puedas consultar resultados pasados y revivir partidos clave de la temporada. Nada se pierde, todo queda en el archivo de la liga.
-    </p>
-    <p style="color:var(--muted); margin-top:10px">
-      Y por último, en la sección de <b>Afiliados</b> encontrarás a nuestros socios y colaboradores oficiales, con enlaces directos a sus comunidades y proyectos. Ellos forman parte de la base que impulsa este torneo.
-    </p>
-  </div>
+<div class="block">
+  <h3>Cómo funciona</h3>
+  <p style="color:var(--muted); margin:0">
+    En esta sección encontrarás las <b>Tablas de Posiciones</b>, que se actualizan de forma automática según los resultados de cada jornada. Los equipos se ordenan por <b>puntos</b>, y en caso de empate se aplican criterios como la <b>diferencia de goles</b> y el <b>rendimiento en los duelos directos</b>.
+  </p>
+  <p style="color:var(--muted); margin-top:10px">
+    En el apartado de <b>Jornadas</b> queda guardado el registro histórico de cada fecha, para que siempre puedas consultar los marcadores anteriores y revivir partidos decisivos de la temporada.
+  </p>
+  <p style="color:var(--muted); margin-top:10px">
+    La sección de <b>Stats</b> muestra los líderes del torneo: goleadores, asistidores, porteros con más porterías a cero y mucho más. Es el lugar ideal para seguir de cerca a las figuras del campeonato.
+  </p>
+  <p style="color:var(--muted); margin-top:10px">
+    En <b>Tarjetas</b> encontrarás el historial disciplinario de los jugadores, con registros de amarillas y rojas en cada jornada, para llevar un control claro de sanciones y antecedentes.
+  </p>
+  <p style="color:var(--muted); margin-top:10px">
+    Finalmente, en la sección de <b>Afiliados</b> podrás conocer a nuestros socios y colaboradores oficiales, con enlaces a sus comunidades y proyectos que respaldan el crecimiento de esta liga.
+  </p>
+</div>
+
 
   <section id="inicio" class="section active">
     <div class="container">
@@ -219,21 +361,29 @@ td .logo {
   </section>
 
   <!-- SECCIÓN: TABLAS -->
-  <section id="tablas" class="section">
-    <div class="container">
-      <div class="tables-grid">
-        <div>
-          <div class="block">
-            <h3>Primera División</h3>
-            <table>
-              <thead>
-                <tr><th>#</th><th>Equipo</th><th>Tag</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th></tr>
-              </thead>
-              <tbody id="tablaD1"></tbody>
-            </table>
-          </div>
-        </div>
-  </section>
+ <section id="tablas" class="section">
+  <div class="container">
+    <div class="tables-grid">
+      <div>
+        <div class="block">
+          <h3>Primera División</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Equipo</th>
+                <th>Tag</th>
+                <th>PJ</th>
+                <th>G</th>
+                <th>E</th>
+                <th>P</th>
+                <th>Pts</th>
+              </tr>
+            </thead>
+            <tbody id="tablaD1"></tbody>
+          </table>
+          </section>
+
 
   <!-- SECCIÓN: JORNADAS -->
   <section id="jornadas" class="section">
@@ -254,10 +404,92 @@ td .logo {
     </div>
   </section>
 
+  <!-- SECCIÓN: STATS -->
+  <section id="stats" class="section">
+    <div class="container">
+
+      <div class="block">
+        <h3>Top 5 Goleadores</h3>
+        <div class="tables-grid">
+          <div>
+            <table>
+              <thead>
+               
+  <tr><th>#</th><th>Jugador</th><th>Goles</th></tr>
+
+              </thead>
+              <tbody id="tablaGoleadores"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Top 5 Asistencias</h3>
+        <div class="tables-grid">
+          <div>
+            <table>
+              <thead>
+
+                <tr><th>#</th><th>Jugador</th><th>Asistencias</th></tr>
+              </thead>
+
+              <tbody id="tablaAsistencias"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Top 5 Porterías a Cero</h3>
+        <div class="tables-grid">
+          <div>
+            <table>
+              <thead>
+                
+  <tr><th>#</th><th>Jugador</th><th>CS</th></tr>
+
+              </thead>
+              <tbody id="tablaCS"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="tarjetas" class="section">
+  <div class="container">
+    <div class="block">
+      <h3>Historial de Tarjetas</h3>
+      <div class="tarjetas-list" id="tarjetasList"></div>
+    </div>
+  </div>
+</section>
+
+
   <footer>Liga Promerica | By HaxCloud</footer>
+
+
+
+
+
+
+
+
+
+
+
 
   <script>
     /* ====== DATA ====== */
+
+    const TARJETAS_CONFIG = {
+  am: "https://cdn-icons-png.flaticon.com/512/8676/8676804.png",
+  ro: "https://cdn-icons-png.flaticon.com/512/5174/5174171.png"
+};
+
     const LOGOS = {
       ALA: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Logo_LDA.png",
       SAP: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Escudo_Saprissa_2012.svg/1200px-Escudo_Saprissa_2012.svg.png",
@@ -308,9 +540,105 @@ td .logo {
 
     ];
 
-   
-function fechaLocal(fechaString){
 
+  // Datos de ejemplo (puedes reemplazar con tus datos reales)
+const GOLEADORES = [
+  { jugador:"???", equipo:"Alajuelense", logo:LOGOS.ALA, valor:0 },
+  { jugador:"???", equipo:"Saprissa", logo:LOGOS.SAP, valor:0 },
+  { jugador:"???", equipo:"Cartaginés", logo:LOGOS.CAR, valor:0 },
+  { jugador:"???", equipo:"Herediano", logo:LOGOS.HER, valor:0 },
+  { jugador:"???", equipo:"Liberia", logo:LOGOS.LIB, valor:0 },
+];
+
+const ASISTENCIAS = [
+  { jugador:"???", equipo:"San Carlos", logo:LOGOS.DSC, valor:0 },
+  { jugador:"???", equipo:"Saprissa", logo:LOGOS.SAP, valor:0 },
+  { jugador:"???", equipo:"Cartaginés", logo:LOGOS.CAR, valor:0 },
+  { jugador:"???", equipo:"Alajuelense", logo:LOGOS.ALA, valor:0 },
+  { jugador:"???", equipo:"Puntarenas", logo:LOGOS.PUN, valor:0 },
+];
+
+const CS = [
+  { jugador:"???", equipo:"Herediano", logo:LOGOS.HER, valor:0 },
+  { jugador:"???", equipo:"Saprissa", logo:LOGOS.SAP, valor:0 },
+  { jugador:"???", equipo:"Liberia", logo:LOGOS.LIB, valor:0 },
+  { jugador:"???", equipo:"Alajuelense", logo:LOGOS.ALA, valor:0 },
+  { jugador:"???", equipo:"San Carlos", logo:LOGOS.DSC, valor:0 },
+];
+
+const TARJETAS = [
+  { jugador: "???", club: "SAP", fecha: "00/00/0000", tipo: "am" },
+  { jugador: "???", club: "HER", fecha: "00/00/0000", tipo: "ro" }
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== TARJETAS ====== */
+function renderTarjetas() {
+  const container = document.getElementById("tarjetasList");
+  if (!container) return;
+  container.innerHTML = "";
+
+  TARJETAS.forEach(t => {
+    const div = document.createElement("div");
+    div.className = "tarjeta";
+    div.innerHTML = `
+      <img class="tarjeta-img" src="${TARJETAS_CONFIG[t.tipo]}" alt="Tarjeta ${t.tipo}">
+      <div class="jugador-info">
+        <div class="jugador-nombre">${t.jugador}</div>
+        <div class="club-info">
+          <img class="club-logo" src="${LOGOS[t.club]}" alt="${t.club}">
+        </div>
+        <div class="fecha">${t.fecha}</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+
+/* ====== STATS ====== */
+function renderStats(targetId, data){
+  const tbody = document.getElementById(targetId);
+  if(!tbody) return;
+  tbody.innerHTML = "";
+  data.slice(0,5).forEach((p,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td class="player-cell">
+        <img class="logo" src="${p.logo}" alt="">
+        <span class="jugador">${p.jugador}</span>
+      </td>
+      <td><b>${p.valor}</b></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Wrappers específicos
+function renderTopGoleadores(){ renderStats("tablaGoleadores", GOLEADORES); }
+function renderTopAsistencias(){ renderStats("tablaAsistencias", ASISTENCIAS); }
+function renderTopCS(){ renderStats("tablaCS", CS); }
+
+/* ====== FUNCIONES AUXILIARES ====== */
+function fechaLocal(fechaString){
   if(fechaString === "00/00/0000") {
     const hoy = new Date();
     const region = navigator.language || "es-ES";
@@ -323,246 +651,111 @@ function fechaLocal(fechaString){
   return fechaString;
 }
 
-    /* ====== RENDER ====== */
-    function sortTabla(a,b){
-      // Orden: puntos desc, victorias desc, PJ asc, nombre asc
-      return (b.pts - a.pts) || (b.g - a.g) || (a.pj - b.pj) || a.nombre.localeCompare(b.nombre);
-    }
+/* ====== TABLA DE POSICIONES ====== */
+function sortTabla(a,b){
+  return (b.pts - a.pts) || (b.g - a.g) || (a.pj - b.pj) || a.nombre.localeCompare(b.nombre);
+}
 
-    function renderTabla(data, targetId){
-      const tbody = document.getElementById(targetId);
-      if(!tbody) return;
-      tbody.innerHTML = "";
-      // clone array to avoid mutating original
-      const sorted = Array.isArray(data) ? [...data].sort(sortTabla) : [];
-      sorted.forEach((t, i) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${i+1}</td>
-          <td class="left"><img class="logo" src="${t.logo}" alt="${t.nombre}"> ${t.nombre}</td>
-          <td>${t.tag}</td>
-          <td>${t.pj}</td>
-          <td>${t.g}</td>
-          <td>${t.e}</td>
-          <td>${t.p}</td>
-          <td><b>${t.pts}</b></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+function renderTabla(data, targetId){
+  const tbody = document.getElementById(targetId);
+  if(!tbody) return;
+  tbody.innerHTML = "";
+  const sorted = Array.isArray(data) ? [...data].sort(sortTabla) : [];
+  sorted.forEach((t, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td class="left"><img class="logo" src="${t.logo}" alt="${t.nombre}"> ${t.nombre}</td>
+      <td>${t.tag}</td>
+      <td>${t.pj}</td>
+      <td>${t.g}</td>
+      <td>${t.e}</td>
+      <td>${t.p}</td>
+      <td><b>${t.pts}</b></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-    function renderJornadas(list, targetId){
-      const box = document.getElementById(targetId);
-      if(!box) return;
-      box.innerHTML = "";
-      list.forEach(m=>{
-        const row = document.createElement('div');
-        row.className = "match";
-        const resultHTML = (m.resultado && m.resultado !== "-") ? `<span class="score">${m.resultado}</span>` : 'VS';
-        row.innerHTML = `
-          <div class="team">
-            <img src="${m.logoLocal}" alt="${m.local}">
-            <span>${m.local}</span>
-          </div>
+/* ====== JORNADAS ====== */
+function renderJornadas(list, targetId){
+  const box = document.getElementById(targetId);
+  if(!box) return;
+  box.innerHTML = "";
+  list.forEach(m=>{
+    const row = document.createElement('div');
+    row.className = "match";
+    const resultHTML = (m.resultado && m.resultado !== "-") ? `<span class="score">${m.resultado}</span>` : 'VS';
+    row.innerHTML = `
+      <div class="team">
+        <img src="${m.logoLocal}" alt="${m.local}">
+        <span>${m.local}</span>
+      </div>
+      <div class="vs">${resultHTML}</div>
+      <div class="team" style="justify-content:flex-end">
+        <span style="text-align:right">${m.visitante}</span>
+        <img src="${m.logoVisit}" alt="${m.visitante}">
+      </div>
+      <div class="when">
+        <div>${fechaLocal(m.fecha)}</div>
+        <div>${m.hora}</div>
+      </div>
+    `;
+    box.appendChild(row);
+  });
+}
 
-          <div class="vs">${resultHTML}</div>
+/* ====== AFILIADOS ====== */
+function renderAfiliados(){
+  const grid = document.getElementById('affGrid');
+  if(!grid) return;
+  grid.innerHTML = "";
+  AFILIADOS.forEach(a=>{
+    const card = document.createElement('a');
+    card.className = 'aff';
+    card.href = a.url;
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.innerHTML = `<img src="${a.img}" alt="${a.name}">`;
+    grid.appendChild(card);
+  });
+}
 
-          <div class="team" style="justify-content:flex-end">
-            <span style="text-align:right">${m.visitante}</span>
-            <img src="${m.logoVisit}" alt="${m.visitante}">
-          </div>
+/* ====== NAV ====== */
+function cambiarSeccion(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
 
-          <div class="when">
-  <div>${fechaLocal(m.fecha)}</div>
-  <div>${m.hora}</div>
-</div>
+  // nav active
+  document.querySelectorAll('.nav button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.target === id);
+  });
 
-        `;
-        box.appendChild(row);
-      });
-    }
+  // scroll top
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
 
-    function renderAfiliados(){
-      const grid = document.getElementById('affGrid');
-      if(!grid) return;
-      grid.innerHTML = "";
-      AFILIADOS.forEach(a=>{
-        const card = document.createElement('a');
-        card.className = 'aff';
-        card.href = a.url;
-        card.target = "_blank";
-        card.rel = "noopener";
-        card.innerHTML = `<img src="${a.img}" alt="${a.name}">`;
-        grid.appendChild(card);
-      });
-    }
-
-    /* ====== NAV ====== */
-    function cambiarSeccion(id){
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      const el = document.getElementById(id);
-      if(el) el.classList.add('active');
-
-      // nav active
-      document.querySelectorAll('.nav button').forEach(b=>{
-        b.classList.toggle('active', b.dataset.target === id);
-      });
-
-      // scroll top for clarity on mobiles
-      window.scrollTo({ top:0, behavior:'smooth' });
-    }
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // Bind nav buttons
-      const nav = document.getElementById('nav');
-      if(nav){
-        nav.addEventListener('click', (e)=>{
-          const btn = e.target.closest('button[data-target]');
-          if(!btn) return;
-          cambiarSeccion(btn.dataset.target);
-        });
-      }
-
-      // Initial render
-      renderTabla(D1, 'tablaD1');
-      renderJornadas(JORNADAS_D1, 'jornadasD1');
-      renderJornadas(JORNADAS_D2, 'jornadasD2');
-      renderAfiliados();
+/* ====== INIT ====== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const nav = document.getElementById('nav');
+  if(nav){
+    nav.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-target]');
+      if(!btn) return;
+      cambiarSeccion(btn.dataset.target);
     });
-  </script>
-
-<!-- LOADER HACKER PURO -->
-<div id="hacker-loader">
-  <canvas id="matrix"></canvas>
-  <div class="loader-content">
-    <img src="https://images.sports.gracenote.com/images/lib/basic/sport/football/competition/logo/300/540.png" alt="Liga Promerica" class="loader-logo">
-    <pre id="hack-text"></pre>
-  </div>
-</div>
-
-<style>
-#hacker-loader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 9999;
-  overflow: hidden;
-}
-
-#matrix {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  opacity: 0.25; /* más tenue para no confundir con texto */
-}
-
-.loader-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #00ff84;
-  font-family: "Courier New", monospace;
-}
-
-.loader-logo {
-  width: 130px;
-  margin-bottom: 25px;
-  filter: drop-shadow(0 0 10px #00ff84);
-  animation: pulse 1.5s infinite;
-}
-
-#hack-text {
-  font-size: 15px;
-  text-align: left;
-  white-space: pre-wrap;
-  color: #00ff84;
-  max-width: 600px;
-  margin: auto;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.7; }
-}
-</style>
-
-<script>
-// ======== Mensajes estilo hacker ========
-const hackLines = [
-  "[*] Iniciando sesión...",
-  "[*] Verificando credenciales...",
-  "[*] Sincronizando datos...",
-  "[*] Estableciendo conexión segura...",
-  "[*] Bienvenido al sistema."
-];
-
-let i = 0;
-function typeLine() {
-  if (i < hackLines.length) {
-    const line = hackLines[i];
-    let j = 0;
-    const interval = setInterval(() => {
-      document.getElementById("hack-text").textContent += line[j] || "";
-      j++;
-      if (j === line.length) {
-        document.getElementById("hack-text").textContent += "\n";
-        clearInterval(interval);
-        i++;
-        setTimeout(typeLine, 500);
-      }
-    }, 40);
-  } else {
-    setTimeout(() => {
-      document.getElementById("hacker-loader").style.opacity = "0";
-      setTimeout(() => document.getElementById("hacker-loader").style.display = "none", 600);
-    }, 1500);
   }
-}
-window.addEventListener("load", typeLine);
 
-// ======== Fondo Matrix ========
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-
-// caracteres especiales estilo hacker
-const chars = "█▓▒░◆◇◈⊗◍◌◎◉◯◖◗◍◍";
-const fontSize = 18;
-const columns = canvas.width / fontSize;
-
-let drops = [];
-for (let x = 0; x < columns; x++) drops[x] = 1;
-
-function draw() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "#00ff84";
-  ctx.font = fontSize + "px Courier New";
-
-  for (let i = 0; i < drops.length; i++) {
-    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-      drops[i] = 0;
-
-    drops[i] += 0.4; // caída más lenta y suave
-  }
-}
-
-setInterval(draw, 70);
-window.addEventListener("resize", () => {
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
+  // Render inicial
+  renderTabla(D1, 'tablaD1');
+  renderJornadas(JORNADAS_D1, 'jornadasD1');
+  renderJornadas(JORNADAS_D2, 'jornadasD2');
+  renderAfiliados();
+  renderTopGoleadores();
+  renderTopAsistencias();
+  renderTopCS();
+  renderTarjetas();
 });
 </script>
 </body>

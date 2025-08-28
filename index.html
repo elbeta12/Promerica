@@ -4,307 +4,150 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Liga Promerica</title>
-  <style>
-    :root{
-      --bg: #0f1a1d;
-      --bg-2:#122227;
-      --panel:#18262c;
-      --ink:#e6f1f1;
-      --muted:#a5b7b7;
-      --accent:#2afc98;
-      --accent-2:#13c4a3;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius:16px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:var(--ink);
-      background: radial-gradient(1200px 800px at 10% -10%, #18413a33, transparent 60%),
-                  radial-gradient(1000px 600px at 120% 10%, #1b5a4a33, transparent 60%),
-                  linear-gradient(180deg, var(--bg), #0b1517 70%);
-    }
-
-    /* Header + Navbar */
-    .topbar{
-      position:sticky; top:0; z-index:20;
-      background:rgba(16,28,30,.85);
-      backdrop-filter: blur(8px);
-      border-bottom:1px solid #2a3b40;
-    }
-    .wrap{ max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:14px; }
-    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
-    .brand img{ width:40px; height:40px; border-radius:10px; box-shadow:var(--shadow) }
-    .brand h1{ font-size:1.05rem; margin:0; letter-spacing:.3px; color:var(--ink); }
-    .spacer{ flex:1 }
-    .nav{ display:flex; gap:6px; padding:6px; background:#0e1a1d; border:1px solid #22373c; border-radius:999px; }
-    .nav button{ appearance:none; border:0; background:transparent; color:var(--muted); padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:600; letter-spacing:.2px; transition: .2s ease; }
-    .nav button:hover{ color:var(--ink) }
-    .nav button.active{ color:#07251b; background:linear-gradient(180deg,var(--accent),#1de28a); box-shadow: 0 6px 18px #1de28a55; }
-    .discord{ margin-left:10px; text-decoration:none; font-weight:700; padding:10px 14px; border-radius:12px; color:#0d1436; background:#8ea1f2; border:1px solid #a8b3ff; transition:.2s; }
-    .discord:hover{ transform:translateY(-1px); filter:brightness(1.05) }
-
-    /* Sections */
-    .section{ display:none; }
-    .section.active{ display:block; }
-    .container{ max-width:1100px; margin:30px auto; padding:0 18px; }
-
-    .hero{ background: linear-gradient(180deg, #0f1f23, #0d1a1d); border:1px solid #24393f; border-radius:var(--radius); box-shadow:var(--shadow); padding:28px; text-align:center; }
-    .hero h2{ margin:6px 0 8px; font-size:1.8rem; color:#dff7f3 }
-    .hero p{ margin:0; color:var(--muted) }
-    .cta-row{ margin-top:16px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap }
-    .btn{ border:1px solid #23423b; color:#bff5e2; background:#123a32; padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700; }
-    .btn:hover{ filter:brightness(1.05) }
-
-    .block { background: #0f1e21; padding: 20px 25px; border-radius: 14px; max-width: 100%; margin: 20px auto; border: 1px solid #23373c; box-shadow: 0 4px 18px rgba(0,0,0,0.5); color: #d9eeee; }
-    .block h3 { margin-top: 0; margin-bottom: 12px; font-size: 1.6rem; color: #0b261f; background: linear-gradient(180deg, var(--accent), #1de28a); padding: 10px 14px; border-radius: 10px; text-align: center; letter-spacing: .5px; }
-    .block p { line-height: 1.6; font-size: 1rem; color: #d9eeee; }
-
-    .block {
-  max-width: 1000px;   /* ancho máximo más compacto */
-  margin: 40px auto;  /* centrado con espacio arriba y abajo */
-  background: var(--panel);
-  padding: 20px;
-  border-radius: 12px;
+<style>
+:root{
+  --bg: #0f1a1d;
+  --bg-2:#122227;
+  --panel:#18262c;
+  --ink:#e6f1f1;
+  --muted:#a5b7b7;
+  --accent:#2afc98;
+  --accent-2:#13c4a3;
+  --accent-3:#3b82f6;
+  --accent-4:#c084fc;
+  --accent-5:#facc15;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --radius:16px;
+  --trans:.3s ease;
 }
 
+/* === Animaciones === */
+@keyframes fadeInUp {from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes glow {from{text-shadow:0 0 8px var(--accent),0 0 18px var(--accent-2)}to{text-shadow:0 0 14px var(--accent-3),0 0 28px var(--accent-4)}}
 
-    /* Tables */
-   .tables-grid {
-  display: flex;              /* centramos la tabla */
-  justify-content: center;    
+/* === Base === */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:var(--ink);
+  background: radial-gradient(1200px 800px at 10% -10%, #18413a33, transparent 60%),
+              radial-gradient(1000px 600px at 120% 10%, #1b5a4a33, transparent 60%),
+              linear-gradient(180deg, var(--bg), #0b1517 70%);
+  animation: fadeInUp .6s ease;
 }
 
-.tables-grid > div {
-  width: 100%;
-  max-width: 750px;           /* ancho máximo de la tabla */
+/* === Header + Navbar === */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(16,28,30,.85);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid #2a3b40;
+  animation: fadeInUp .6s ease;
 }
+.wrap{ max-width:1100px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:14px;}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:40px;height:40px;border-radius:10px;box-shadow:var(--shadow)}
+.brand h1{font-size:1.05rem;margin:0;letter-spacing:.3px;color:var(--ink);animation:glow 3s infinite alternate}
+.spacer{flex:1}
+.nav{display:flex;gap:6px;padding:6px;background:#0e1a1d;border:1px solid #22373c;border-radius:999px}
+.nav button{appearance:none;border:0;background:transparent;color:var(--muted);padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:600;letter-spacing:.2px;transition:var(--trans)}
+.nav button:hover{color:var(--ink);transform:translateY(-1px)}
+.nav button.active{color:#07251b;background:linear-gradient(90deg,var(--accent-3),var(--accent));box-shadow:0 6px 18px #1de28a55}
+.discord{margin-left:10px;text-decoration:none;font-weight:700;padding:10px 14px;border-radius:12px;color:#0d1436;background:#8ea1f2;border:1px solid #a8b3ff;transition:.2s}
+.discord:hover{transform:translateY(-2px);filter:brightness(1.1)}
 
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid #23373c;
-  background: #0f1e21;
+/* === Sections === */
+.section{display:none}
+.section.active{display:block;animation:fadeInUp .6s ease}
+.container{max-width:1100px;margin:30px auto;padding:0 18px}
+
+/* === Hero === */
+.hero{background: linear-gradient(180deg,#0f1f23,#0d1a1d);border:1px solid #24393f;border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;text-align:center;animation:pulse 4s infinite}
+.hero h2{margin:6px 0 8px;font-size:1.8rem;color:#dff7f3}
+.hero p{margin:0;color:var(--muted)}
+.cta-row{margin-top:16px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn{border:1px solid #23423b;color:#bff5e2;background:#123a32;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:700;transition:var(--trans)}
+.btn:hover{filter:brightness(1.1);transform:scale(1.05)}
+
+/* === Blocks === */
+.block{max-width:1000px;margin:40px auto;background:var(--panel);padding:20px;border-radius:12px;box-shadow:var(--shadow);transition:var(--trans)}
+.block:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.block h3{margin-top:0;margin-bottom:12px;font-size:1.6rem;color:#0b261f;background:linear-gradient(90deg,var(--accent-4),var(--accent-2));padding:10px 14px;border-radius:10px;text-align:center;letter-spacing:.5px}
+.block p{line-height:1.6;font-size:1rem;color:#d9eeee}
+
+/* === Tables === */
+.tables-grid{display:flex;justify-content:center}
+.tables-grid>div{width:100%;max-width:750px}
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:14px;border:1px solid #23373c;background:#0f1e21;animation:fadeInUp .6s ease}
+thead th{text-align:center;padding:12px 10px;font-size:.9rem;letter-spacing:.4px;color:#0b261f;background:linear-gradient(90deg,var(--accent-3),var(--accent));position:sticky;top:0;z-index:1}
+tbody td{padding:10px;border-top:1px solid #1e3236;text-align:center;color:#d9eeee}
+tbody tr:nth-child(odd) td{background:#122427}
+tbody tr:hover td{background:#153238;transition:var(--trans)}
+td.left{text-align:left}
+td .logo{width:22px;height:22px;vertical-align:middle;border-radius:6px;margin-right:6px}
+.separator{text-align:center;margin:16px 0 -6px;color:#9fdcc8;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+
+/* === Jornadas === */
+.match-list{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:760px){.match-list{grid-template-columns:1fr 1fr}}
+.match{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0f1f22;border:1px solid #243b41;border-radius:12px;padding:12px 14px;transition:var(--trans)}
+.match:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.team{display:flex;align-items:center;gap:8px;min-width:0;font-weight:700;color:#eafff7}
+.team img{width:28px;height:28px;border-radius:6px}
+.vs{opacity:.8;font-weight:800;letter-spacing:.3px}
+.when{text-align:right;color:#a8d7c7;font-size:.9rem}
+.badge{font-size:.65rem;padding:4px 8px;border-radius:999px;border:1px solid #27524a;color:#baf3e1;background:#113c33}
+.score{font-weight:800;font-size:1.1rem;color:#FFD700;padding:2px 8px;border-radius:8px;background:#1a2d2f}
+
+/* === Affiliates === */
+.aff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:680px){.aff-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.aff-grid{grid-template-columns:repeat(4,1fr)}}
+.aff{background:#0f2023;border:1px solid #244045;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;transition:var(--trans);text-decoration:none}
+.aff:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 10px 20px #00000066}
+.aff img{max-width:70%;max-height:70%;border-radius:10px}
+
+/* === Footer === */
+footer{margin:40px 0 60px;text-align:center;color:#86aaa7;font-size:.9rem}
+
+/* === Stats Table === */
+#stats .block h3{margin-bottom:14px;font-size:1.4rem}
+#stats table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #23373c;border-radius:12px;overflow:hidden;background:#0f1e21}
+#stats thead th{padding:10px;background:linear-gradient(90deg,var(--accent-5),var(--accent-3));color:#0b261f;font-weight:700;font-size:.9rem}
+#stats thead th:first-child,#stats thead th:nth-child(2){text-align:left}
+#stats thead th:nth-child(n+3){text-align:right}
+#stats tbody td{padding:10px;border-top:1px solid #1e3236;color:#d9eeee}
+#stats tbody td:first-child,#stats tbody td.player-cell{text-align:left}
+#stats tbody td:nth-child(n+3){text-align:right}
+#stats tbody tr:nth-child(odd) td{background:#122427}
+#stats tbody tr:hover td{background:#153238}
+#stats td img.logo{width:24px;height:24px;border-radius:6px;display:block;margin:0 auto}
+#stats td.player-cell{display:flex;align-items:center;gap:8px;text-align:left;font-weight:500}
+#stats td.player-cell img.logo{width:24px;height:24px;border-radius:6px;margin:0}
+#stats td.player-cell .jugador{color:#d9eeee;font-size:.95rem}
+
+/* === Tarjetas === */
+#tarjetasList{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.tarjeta{flex:0 0 calc(33.333% - 12px);display:flex;align-items:center;background:#0f1e21;border-radius:12px;padding:8px;box-shadow:0 2px 8px rgba(0,0,0,0.5);box-sizing:border-box;max-width:300px;transition:var(--trans)}
+.tarjeta:hover{transform:scale(1.05);box-shadow:0 6px 14px rgba(0,0,0,.5)}
+.tarjeta-img{width:50px;height:70px;object-fit:contain;margin-right:12px}
+.jugador-info{display:flex;flex-direction:column;gap:6px;color:#d9eeee}
+.club-info{display:flex;align-items:center}
+.club-logo{width:28px;height:28px;border-radius:6px;object-fit:cover;margin-right:6px}
+.fecha{font-size:.85rem;color:#a0cfc1}
+
+/* === Responsive === */
+@media(max-width:768px){
+  .tarjeta{flex:0 0 calc(50% - 12px)}
 }
-
-thead th {
-  text-align: center;
-  padding: 12px 10px;
-  font-size: .9rem;
-  letter-spacing: .4px;
-  color: #0b261f;
-  background: linear-gradient(180deg, var(--accent), #1de28a);
-  position: sticky;
-  top: 0;
-  z-index: 1;
+@media(max-width:480px){
+  .tarjeta{flex:0 0 100%}
 }
+</style>
 
-tbody td {
-  padding: 10px;
-  border-top: 1px solid #1e3236;
-  text-align: center;
-  color: #d9eeee;
-}
-
-tbody tr:nth-child(odd) td {
-  background: #122427;
-}
-
-tbody tr:hover td {
-  background: #153238;
-}
-
-td.left {
-  text-align: left;
-}
-
-td .logo {
-  width: 22px;
-  height: 22px;
-  vertical-align: middle;
-  border-radius: 6px;
-  margin-right: 6px;
-}
-
-.separator {
-  text-align: center;
-  margin: 16px 0 -6px;
-  color: #9fdcc8;
-  font-weight: 800;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-}
-
-    /* Jornadas */
-    .match-list{ display:grid; grid-template-columns:1fr; gap:12px }
-    @media(min-width:760px){ .match-list{ grid-template-columns:1fr 1fr } }
-    .match{ display:flex; align-items:center; justify-content:space-between; gap:10px; background:#0f1f22; border:1px solid #243b41; border-radius:12px; padding:12px 14px; }
-    .team{ display:flex; align-items:center; gap:8px; min-width:0; font-weight:700; color:#eafff7; }
-    .team img{ width:28px; height:28px; border-radius:6px }
-    .vs{ opacity:.8; font-weight:800; letter-spacing:.3px }
-    .when{ text-align:right; color:#a8d7c7; font-size:.9rem }
-    .badge{ font-size:.65rem; padding:4px 8px; border-radius:999px; border:1px solid #27524a; color:#baf3e1; background:#113c33; }
-    .score { font-weight: 800; font-size: 1.1rem; color: #FFD700; padding: 2px 8px; border-radius: 8px; background: #1a2d2f; }
-
-    /* Affiliates */
-    .aff-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-    @media(min-width:680px){ .aff-grid{ grid-template-columns:repeat(3,1fr) } }
-    @media(min-width:960px){ .aff-grid{ grid-template-columns:repeat(4,1fr) } }
-    .aff{ background:#0f2023; border:1px solid #244045; border-radius:14px; padding:14px; display:flex; align-items:center; justify-content:center; aspect-ratio: 16/10; transition:.2s; text-decoration:none; }
-    .aff:hover{ transform:translateY(-2px); box-shadow:0 10px 18px #00000055 }
-    .aff img{ max-width:70%; max-height:70%; border-radius:10px }
-
-    /* Footer */
-    footer{ margin:40px 0 60px; text-align:center; color:#86aaa7; font-size:.9rem; }
-
-   /* === Stats === */
-#stats .block h3 {
-  margin-bottom: 14px;
-  font-size: 1.4rem;
-}
-
-#stats table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid #23373c;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #0f1e21;
-}
-
-/* Encabezados */
-#stats thead th {
-  padding: 10px;
-  background: linear-gradient(180deg, var(--accent), #1de28a);
-  color: #0b261f;
-  font-weight: 700;
-  font-size: .9rem;
-}
-
-/* Alineación de columnas del encabezado */
-#stats thead th:first-child,
-#stats thead th:nth-child(2) {
-  text-align: left; /* # y Jugador */
-}
-
-#stats thead th:nth-child(n+3) {
-  text-align: right; /* Goles, Asistencias, CS */
-}
-
-/* Celdas del cuerpo */
-#stats tbody td {
-  padding: 10px;
-  border-top: 1px solid #1e3236;
-  color: #d9eeee;
-}
-
-/* Alineación de celdas del cuerpo */
-#stats tbody td:first-child,
-#stats tbody td.player-cell {
-  text-align: left; /* # y Jugador */
-}
-
-#stats tbody td:nth-child(n+3) {
-  text-align: right; /* Goles, Asistencias, CS */
-}
-
-#stats tbody tr:nth-child(odd) td {
-  background: #122427;
-}
-
-#stats tbody tr:hover td {
-  background: #153238;
-}
-
-/* Logos dentro de celdas */
-#stats td img.logo {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Celda de jugador */
-#stats td.player-cell {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-align: left;
-  font-weight: 500;
-}
-
-#stats td.player-cell img.logo {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  margin: 0;
-}
-
-#stats td.player-cell .jugador {
-  color: #d9eeee;
-  font-size: 0.95rem;
-}
-
-/* Tarjetas */
-#tarjetasList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px; /* espacio entre tarjetas */
-  justify-content: center; /* centra las tarjetas en la fila */
-}
-
-.tarjeta {
-  flex: 0 0 calc(33.333% - 12px); /* 3 tarjetas por fila con espacio */
-  display: flex;
-  align-items: center;
-  background: #0f1e21;
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  box-sizing: border-box;
-  max-width: 300px; /* opcional, evita que se estire demasiado */
-}
-
-.tarjeta-img {
-  width: 50px;
-  height: 70px;
-  object-fit: contain;
-  margin-right: 12px;
-}
-
-.jugador-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  color: #d9eeee;
-}
-
-.club-info {
-  display: flex;
-  align-items: center;
-}
-
-.club-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  object-fit: cover;
-  margin-right: 6px;
-}
-
-.fecha {
-  font-size: 0.85rem;
-  color: #a0cfc1;
-}
-
-  </style>
 </head>
 <body>
 
